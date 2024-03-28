@@ -27,11 +27,31 @@ const randomImage = random.image.get(400);
 Passing user config:
 
 ```
-const random = new Random({
-    text: 'Hi I am Mahdi Zarei'
-});
 
-const randomText = random.string.get(3); // Mahdi Hi am
+const random = new Random({
+    string: {
+        text: 'one two three four five six',
+        shuffle: false,
+        minLength: 1,
+        maxLength: 3
+    },
+    date: {
+        minDate: new Date('2022-01-01'),
+        maxDate: new Date('2022-05-01')
+    },
+    number: {
+        min: 20,
+        max: 50,
+        includeNegatives: true
+    },
+    boolean: {
+        trueOutcomePercentage: 90
+    }
+})
+
+const randomText = random.string.get(3); // one two three
+const randomNumber = random.number.get(); // -31
+// ...
 ```
 
 That's it! Enjoy!
