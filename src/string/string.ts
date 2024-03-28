@@ -1,22 +1,30 @@
 import {shuffle} from "../utils/shuffle";
-import {Config} from "../utils/config.model";
+import {StringConfig} from "../utils/config.model";
 
 export class RandomString {
     private readonly randomTextArr;
+    text: string;
+    minLength: number;
+    maxLength: number;
+    shuffle: boolean;
 
-    constructor(config: Config) {
-        this.randomTextArr = config.text.split(' ')
+    constructor(config: StringConfig) {
+        this.text = config.text;
+        this.minLength = config.minLength;
+        this.maxLength = config.maxLength;
+        this.shuffle = config.shuffle;
+        this.randomTextArr = this.text.split(' ');
     }
 
-    get(length?: { min?: number; max?: number } | number): string {
-        let textArray = this.randomTextArr;
-        const minLength = typeof length === 'number' ? length : length?.min ?? 1;
-        const maxLength =
-            typeof length === 'number' ? length : length?.max ?? textArray.length;
+    get(config?: Partial<StringConfig> & Partial<{fixedLength: number}>): string {
+        const minLength = config?.fixedLength ?? config?.minLength ?? this.minLength;
+        const maxLength = config?.fixedLength ?? config?.maxLength ?? this.maxLength;
+        const shouldShuffle = config?.shuffle ?? this.shuffle;
+        let textArray = config?.text ? config.text.split(' ') : this.randomTextArr;
         while (maxLength > textArray.length) {
             textArray = [...textArray, ...this.randomTextArr];
         }
-        return shuffle(textArray)
+        return (shouldShuffle ? shuffle(textArray) : textArray)
             .slice(
                 0,
                 Math.ceil(

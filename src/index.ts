@@ -3,28 +3,24 @@ import {RandomImage} from "./image/image";
 import {RandomNumber} from "./number/number";
 import {RandomBoolean} from "./boolean/boolean";
 import {RandomDate} from "./date/date";
-import {readFileSync} from 'fs';
-import {Config} from "./utils/config.model";
+import {Config, PartialConfig} from "./utils/config.model";
+import {config as defaultConfig} from "./base/default.config"
 
-let customConfigFile;
-try {
-    customConfigFile = readFileSync('./random.config.json', { encoding: 'utf8', flag: 'r' });
-} catch (e) {}
+export class Random {
+    string;
+    image;
+    number;
+    boolean;
+    date;
 
-let config;
-
-if (customConfigFile) {
-    config = JSON.parse(customConfigFile) as Config
-} else {
-    config = JSON.parse(readFileSync('/base/default.config.json', { encoding: 'utf8', flag: 'r' })) as Config;
+    constructor(userConfig: PartialConfig = {}) {
+        const config = {...defaultConfig, ...userConfig} as Config;
+        this.string = new RandomString(config.string);
+        this.image = new RandomImage();
+        this.number = new RandomNumber(config.number);
+        this.boolean = new RandomBoolean(config.boolean);
+        this.date = new RandomDate(config.date);
+    }
 }
 
-const random = {
-    string: new RandomString(config),
-    image: new RandomImage(),
-    number: new RandomNumber(),
-    boolean: new RandomBoolean(),
-    date: new RandomDate()
-}
-
-export default random;
+export default Random;

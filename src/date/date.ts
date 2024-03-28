@@ -1,10 +1,19 @@
+import {DateConfig} from "../utils/config.model";
+
 export class RandomDate {
-    get(
-        start: Date = new Date('1970-01-01'),
-        end: Date = new Date(),
-    ): Date {
+    minDate: Date;
+    maxDate: Date;
+
+    constructor(config: DateConfig) {
+        this.minDate = config.minDate;
+        this.maxDate = config.maxDate;
+    }
+
+    get(config?: Partial<DateConfig>): Date {
+        const minDate = config?.minDate ?? this.minDate;
+        const maxDate = config?.maxDate ?? this.maxDate;
         return new Date(
-            start.getTime() + Math.random() * (end.getTime() - start.getTime()),
+            minDate.getTime() + Math.random() * (maxDate.getTime() - minDate.getTime()),
         );
     }
 }
