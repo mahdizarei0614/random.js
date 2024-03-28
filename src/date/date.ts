@@ -12,9 +12,6 @@ export class RandomDate {
     get(config?: Partial<DateConfig>): Date {
         const minDate = config?.minDate ?? this.minDate;
         const maxDate = config?.maxDate ?? this.maxDate;
-
-        console.log(minDate)
-        console.log(maxDate)
         return new Date(
             minDate.getTime() + Math.random() * (maxDate.getTime() - minDate.getTime()),
         );
