@@ -13,14 +13,14 @@ export class RandomString {
         this.minLength = config.minLength;
         this.maxLength = config.maxLength;
         this.shuffle = config.shuffle;
-        this.randomTextArr = this.text.split(' ');
+        this.randomTextArr = this.text.split(' ').filter(i => i !== '' && i !== ' ');
     }
 
     get(config?: Partial<StringConfig> & Partial<{fixedLength: number}>): string {
         const minLength = config?.fixedLength ?? config?.minLength ?? this.minLength;
         const maxLength = config?.fixedLength ?? config?.maxLength ?? this.maxLength;
         const shouldShuffle = config?.shuffle ?? this.shuffle;
-        let textArray = config?.text ? config.text.split(' ') : this.randomTextArr;
+        let textArray = config?.text ? config.text.split(' ').filter(i => i !== '' && i !== ' ') : this.randomTextArr;
         while (maxLength > textArray.length) {
             textArray = [...textArray, ...this.randomTextArr];
         }

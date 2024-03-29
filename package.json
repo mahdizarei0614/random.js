@@ -1,6 +1,6 @@
 {
   "name": "@skybluedev/random.js",
-  "version": "2.1.2",
+  "version": "2.2.1",
   "description": "A cool random data generator!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

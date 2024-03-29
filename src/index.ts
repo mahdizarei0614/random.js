@@ -3,22 +3,38 @@ import {RandomImage} from "./image/image";
 import {RandomNumber} from "./number/number";
 import {RandomBoolean} from "./boolean/boolean";
 import {RandomDate} from "./date/date";
-import {PartialConfig} from "./utils/config.model";
+import {BooleanConfig, DateConfig, NumberConfig, PartialConfig, StringConfig} from "./utils/config.model";
 import {config as defaultConfig} from "./base/default.config"
 
 export class Random {
-    string;
-    image;
-    number;
-    boolean;
-    date;
+    private stringClass;
+    private imageClass;
+    private numberClass;
+    private booleanClass;
+    private dateClass;
 
     constructor(userConfig: PartialConfig = {}) {
-        this.string = new RandomString({...defaultConfig.string, ...userConfig.string});
-        this.image = new RandomImage();
-        this.number = new RandomNumber({...defaultConfig.number, ...userConfig.number});
-        this.boolean = new RandomBoolean({...defaultConfig.boolean, ...userConfig.boolean});
-        this.date = new RandomDate({...defaultConfig.date, ...userConfig.date});
+        this.stringClass = new RandomString({...defaultConfig.string, ...userConfig.string});
+        this.imageClass = new RandomImage();
+        this.numberClass = new RandomNumber({...defaultConfig.number, ...userConfig.number});
+        this.booleanClass = new RandomBoolean({...defaultConfig.boolean, ...userConfig.boolean});
+        this.dateClass = new RandomDate({...defaultConfig.date, ...userConfig.date});
+    }
+
+    string(config?: Partial<StringConfig>) {
+        return this.stringClass.get(config);
+    }
+    image(config?: { width: number; height: number } | number) {
+        return this.imageClass.get(config);
+    }
+    number(config?: Partial<NumberConfig>) {
+        return this.numberClass.get(config);
+    }
+    boolean(config?: Partial<BooleanConfig>) {
+        return this.booleanClass.get(config);
+    }
+    date(config?: Partial<DateConfig>) {
+        return this.dateClass.get(config);
     }
 }
 
