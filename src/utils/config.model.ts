@@ -16,7 +16,7 @@ export class StringConfig {
     text: string;
     minLength: number;
     maxLength: number;
-    fixedLength: number
+    fixedLength?: number
     shuffle: boolean;
 }
 
