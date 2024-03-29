@@ -16,7 +16,7 @@ export class RandomString {
         this.randomTextArr = this.text.split(' ').filter(i => i !== '' && i !== ' ');
     }
 
-    get(config?: Partial<StringConfig> & Partial<{fixedLength: number}>): string {
+    get(config?: Partial<StringConfig>): string {
         const minLength = config?.fixedLength ?? config?.minLength ?? this.minLength;
         const maxLength = config?.fixedLength ?? config?.maxLength ?? this.maxLength;
         const shouldShuffle = config?.shuffle ?? this.shuffle;
