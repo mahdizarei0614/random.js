@@ -56,4 +56,4 @@ const randomNumber = random.number.get(); // -31
 
 That's it! Enjoy!
 
-You can support my work through donate section of my portfolio at https://izarei.ir.
+You can support my work through donate section of my portfolio at https://zarei.xyz.
